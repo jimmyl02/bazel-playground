@@ -1,8 +1,8 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "pkg",
+    name = "helper",
     srcs = ["helper.go"],
-    importpath = "github.com/jimmyl02/bazel-playground/pkg",
+    importpath = "github.com/jimmyl02/bazel-playground/pkg/helper",
     visibility = ["//visibility:public"],
 )

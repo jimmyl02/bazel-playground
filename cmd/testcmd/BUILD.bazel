@@ -5,6 +5,7 @@ go_library(
     srcs = ["main.go"],
     importpath = "github.com/jimmyl02/bazel-playground/cmd/testcmd",
     visibility = ["//visibility:private"],
+    deps = ["//pkg/helper"],
 )
 
 go_binary(

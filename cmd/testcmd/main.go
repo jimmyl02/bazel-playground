@@ -1,9 +1,13 @@
 package main
 
 import (
-    "fmt"
+	"fmt"
+
+	"github.com/jimmyl02/bazel-playground/pkg/helper"
 )
 
 func main() {
-    fmt.Println("hello world!")
+	fmt.Println("hello world!")
+
+	helper.Help()
 }
