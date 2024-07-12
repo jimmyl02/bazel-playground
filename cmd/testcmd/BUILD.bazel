@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "testcmd_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/jimmyl02/bazel-playground/cmd/testcmd",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "testcmd",
+    embed = [":testcmd_lib"],
+    visibility = ["//visibility:public"],
+)
