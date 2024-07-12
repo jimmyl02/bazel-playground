@@ -4,10 +4,13 @@ import (
 	"fmt"
 
 	"github.com/jimmyl02/bazel-playground/pkg/helper"
+	"github.com/moznion/go-optional"
 )
 
 func main() {
 	fmt.Println("hello world!")
 
-	helper.Help()
+	some := optional.Some(true)
+	helpRes := helper.Help()
+	fmt.Println(helpRes, some.Unwrap())
 }

@@ -5,7 +5,10 @@ go_library(
     srcs = ["main.go"],
     importpath = "github.com/jimmyl02/bazel-playground/cmd/testcmd",
     visibility = ["//visibility:private"],
-    deps = ["//pkg/helper"],
+    deps = [
+        "//pkg/helper",
+        "@com_github_moznion_go_optional//:go_default_library",
+    ],
 )
 
 go_binary(

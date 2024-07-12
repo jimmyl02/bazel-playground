@@ -18,15 +18,21 @@ http_archive(
     ],
 )
 
-
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
 ############################################################
 # Define your own dependencies here using go_repository.
 # Else, dependencies declared by rules_go/gazelle will be used.
 # The first declaration of an external repository "wins".
 ############################################################
+
+go_repository(
+    name = "com_github_moznion_go_optional",
+    importpath = "github.com/moznion/go-optional",
+    sum = "h1:gM9YSR7kusSQHiaq2IDHU7WoJNGETT1NbuB15XU4ebA=",
+    version = "v0.12.0",
+)
 
 go_rules_dependencies()
 
