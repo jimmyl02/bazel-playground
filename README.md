@@ -2,6 +2,8 @@
 
 this is a little playground to better learn how to work with bazel
 
+## setup
+
 #### install bazelisk and bazel
 
 ```
@@ -43,6 +45,8 @@ edit the workspace preferences
 }
 ```
 
+## golang
+
 #### import a new dependency with gazelle
 
 add an external dependency
@@ -75,3 +79,9 @@ bazel run //cmd/testcmd
 bazel build //cmd/testcmd
 ./bazel-bin/cmd/testcmd/testcmd_/testcmd
 ```
+
+## protobuf
+
+following guide [here](https://www.tweag.io/blog/2021-09-08-rules_go-gazelle/)
+
+write the proto file then run gazelle to generate the `BUILD.bazel`
