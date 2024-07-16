@@ -7,7 +7,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//pkg/helper",
-        "@com_github_moznion_go_optional//:go_default_library",
+        "@com_github_moznion_go_optional//:go-optional",
     ],
 )
 
