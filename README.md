@@ -85,3 +85,25 @@ bazel build //cmd/testcmd
 following guide [here](https://www.tweag.io/blog/2021-09-08-rules_go-gazelle/)
 
 write the proto file then run gazelle to generate the `BUILD.bazel`
+
+notice that running `bazel build //...` fails because we are missing `@@com_google_protobuf`
+
+we can add it to our WORKSPACE by following [this](https://github.com/bazelbuild/rules_go/tree/5d306c433cebb1ae8a7b72df2a055be2bacbb12b?tab=readme-ov-file#protobuf-and-grpc)
+
+```
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "d0f5f605d0d656007ce6c8b5a82df3037e1d8fe8b121ed42e536f569dec16113",
+    strip_prefix = "protobuf-3.14.0",
+    urls = [
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz",
+        "https://github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz",
+    ],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+```

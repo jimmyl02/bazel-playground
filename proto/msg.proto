@@ -1,5 +1,5 @@
-syntax = "proto3;
+syntax = "proto3";
 
 message SayHiRequest {
-    string name = 1;
+  string name = 1;
 }
