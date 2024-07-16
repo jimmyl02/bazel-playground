@@ -84,7 +84,9 @@ bazel build //cmd/testcmd
 
 following guide [here](https://www.tweag.io/blog/2021-09-08-rules_go-gazelle/)
 
-write the proto file then run gazelle to generate the `BUILD.bazel`
+#### setup
+
+write the proto file into a types directory then run gazelle to generate the `BUILD.bazel`
 
 notice that running `bazel build //...` fails because we are missing `@@com_google_protobuf`
 
@@ -107,3 +109,9 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 protobuf_deps()
 ```
+
+now running `bazel build //...` works!
+
+#### using protobuf types within golang
+
+take a look at the `BUILD.bazel` of the types directory
