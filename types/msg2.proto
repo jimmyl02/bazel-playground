@@ -1,5 +1,5 @@
 syntax = "proto3";
 
 message SayByeRequest {
-  string name = 1;
+  uint32 bye = 1;
 }
