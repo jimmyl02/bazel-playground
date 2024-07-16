@@ -34,13 +34,25 @@ go_repository(
     version = "v0.12.0",
 )
 
+go_repository(
+    name = "org_golang_google_grpc",
+    importpath = "google.golang.org/grpc",
+    sum = "h1:bs/cUb4lp1G5iImFFd3u5ixQzweKizoZJAwBNLR42lc=",
+    version = "v1.65.0",
+)
+
+go_repository(
+    name = "org_golang_google_genproto_googleapis_rpc",
+    importpath = "google.golang.org/genproto/googleapis/rpc",
+    sum = "h1:JU0iKnSg02Gmb5ZdV8nYsKEKsP6o/FGVWTrw4i1DA9A=",
+    version = "v0.0.0-20240711142825-46eb208f015d",
+)
+
 go_rules_dependencies()
 
 go_register_toolchains(version = "1.22.2")
 
 gazelle_dependencies()
-
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "com_google_protobuf",

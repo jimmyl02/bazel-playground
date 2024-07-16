@@ -1,18 +1,19 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 go_library(
-    name = "testserver_lib",
+    name = "testclient_lib",
     srcs = ["main.go"],
-    importpath = "github.com/jimmyl02/bazel-playground/cmd/testserver",
+    importpath = "github.com/jimmyl02/bazel-playground/cmd/testclient",
     visibility = ["//visibility:private"],
     deps = [
         "//types",
         "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_protobuf//types/known/wrapperspb:go_default_library",
     ],
 )
 
 go_binary(
-    name = "testserver",
-    embed = [":testserver_lib"],
+    name = "testclient",
+    embed = [":testclient_lib"],
     visibility = ["//visibility:public"],
 )
