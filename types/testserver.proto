@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package types;
+
+import "types/msg.proto";
+
+service TestServer {
+    rpc SayHi(SayHiRequest) returns (SayHiResponse) {}
+}

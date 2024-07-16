@@ -5,6 +5,7 @@ go_library(
     srcs = ["main.go"],
     importpath = "github.com/jimmyl02/bazel-playground/cmd/testserver",
     visibility = ["//visibility:private"],
+    deps = ["//types"],
 )
 
 go_binary(

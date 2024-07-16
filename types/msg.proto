@@ -1,7 +1,13 @@
 syntax = "proto3";
 
+package types;
+
 import "google/protobuf/wrappers.proto";
 
 message SayHiRequest {
   google.protobuf.StringValue name = 1;
+}
+
+message SayHiResponse {
+  string response = 1;
 }
