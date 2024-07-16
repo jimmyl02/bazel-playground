@@ -23,4 +23,5 @@ proto_library(
         "msg2.proto",
     ],
     visibility = ["//visibility:public"],
+    deps = ["@com_google_protobuf//:wrappers_proto"],
 )
