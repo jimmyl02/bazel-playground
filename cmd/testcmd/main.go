@@ -7,13 +7,16 @@ import (
 	"github.com/jimmyl02/bazel-playground/pkg/helper"
 	"github.com/jimmyl02/bazel-playground/types"
 	"github.com/moznion/go-optional"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 func main() {
 	fmt.Println("hello world!")
 
 	req := types.SayHiRequest{
-		Name: "hi! my name is test",
+		Name: &wrapperspb.StringValue{
+			Value: "hi! my name is test",
+		},
 	}
 
 	data, err := proto.Marshal(&req)

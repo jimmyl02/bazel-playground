@@ -10,6 +10,7 @@ go_library(
         "//types",
         "@com_github_golang_protobuf//proto:go_default_library",
         "@com_github_moznion_go_optional//:go-optional",
+        "@org_golang_google_protobuf//types/known/wrapperspb:go_default_library",
     ],
 )
 
