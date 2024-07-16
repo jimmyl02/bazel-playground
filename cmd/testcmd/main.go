@@ -49,7 +49,7 @@ func main() {
 	} else {
 		// sadly, this still works which means it's imperative that the type is correct
 		// this is so sad :sob:
-		fmt.Println("Expected success but this is so sad ;-; why does protobuf work")
+		fmt.Println("Expected success but this is so sad ;-;", incorrectReq.Bye)
 	}
 
 	some := optional.Some(true)

@@ -114,4 +114,4 @@ now running `bazel build //...` works!
 
 #### using protobuf types within golang
 
-take a look at the `BUILD.bazel` of the types directory
+take a look at the `BUILD.bazel` of the types directory; notice that we export a `go_library`, this means we can just directly use it within the go code!
