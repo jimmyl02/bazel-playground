@@ -40,7 +40,7 @@ edit the workspace preferences
 ```
 {
     "go.toolsEnvVars": {
-        "GOPACKAGESDRIVER": "${workspaceFolder}/tools/editor/gopackagesdriver.sh"
+        "GOPACKAGESDRIVER": "${workspaceFolder}/scripts/gopackagesdriver.sh"
     }
 }
 ```
