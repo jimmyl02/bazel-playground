@@ -110,6 +110,9 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
 ```
 
+there is another step after rules_go was updated to 48.0, we have to add rules_proto to the MODULE.bazel file
+`bazel_dep(name = "rules_proto", version = "7.0.2")`
+
 now running `bazel build //...` works!
 
 #### using protobuf types within golang

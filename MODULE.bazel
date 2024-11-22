@@ -1,6 +1,15 @@
+"""Bazel module configuration for the bazel-playground project.
+
+This MODULE.bazel file manages external dependencies using Bzlmod,
+migrating from the traditional WORKSPACE approach. It specifies
+the project's external dependency requirements.
+"""
+
 ###############################################################################
 # Bazel now uses Bzlmod by default to manage external dependencies.
 # Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+
+bazel_dep(name = "rules_proto", version = "7.0.2")
