@@ -1,6 +1,6 @@
 # bazel-playground
 
-this is a little playground to better learn how to work with bazel
+this is a little playground to better learn how to work with bazel, protobuf, and grpc
 
 ## setup
 
