@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/jimmyl02/bazel-playground/pkg/helper"
-	"github.com/jimmyl02/bazel-playground/types"
+	"github.com/jimmyl02/bazel-playground/proto/testproto"
 	"github.com/moznion/go-optional"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
@@ -14,7 +14,7 @@ func main() {
 	fmt.Println("hello world!")
 
 	// try out the protobuf generated type!
-	req := types.SayHiRequest{
+	req := testproto.SayHiRequest{
 		Name: &wrapperspb.StringValue{
 			Value: "hi! my name is test!",
 		},
@@ -29,7 +29,7 @@ func main() {
 	fmt.Println("Serialized protobuf message:", data)
 
 	// unmarshal the data back into a new instance of the message struct
-	var parsedReq types.SayHiRequest
+	var parsedReq testproto.SayHiRequest
 	if err := proto.Unmarshal(data, &parsedReq); err != nil {
 		fmt.Println("Error unmarshaling protobuf message:", err)
 		return
@@ -43,7 +43,7 @@ func main() {
 	}
 
 	// attempt invalid unmarshal
-	var incorrectReq types.SayByeRequest
+	var incorrectReq testproto.SayByeRequest
 	if err := proto.Unmarshal(data, &incorrectReq); err != nil {
 		fmt.Println("Unexpected error when unmarshaling protobuf message:", err)
 	} else {

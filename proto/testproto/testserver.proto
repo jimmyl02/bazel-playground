@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package types;
+package testproto;
 
-import "types/msg.proto";
+import "proto/testproto/msg.proto";
 
 service Test {
     rpc SayHi(SayHiRequest) returns (SayHiResponse) {}

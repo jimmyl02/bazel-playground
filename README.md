@@ -10,17 +10,24 @@ this is a little playground to better learn how to work with bazel
 # install bazelisk and bazel
 brew install bazelisk
 bazel
-go install github.com/bazelbuild/bazel-gazelle/cmd/gazelle@latest
 ```
 
-#### setup bazel in repository
+#### setup bazel / golang in repository
+
+optionally, we can define a strict bazel version to use with `.bazelliskrc` by setting `USE_BAZEL_VERSION=8.0.0`
+
+setup MODULE.bazel with [docs](https://github.com/bazel-contrib/rules_go/blob/master/docs/go/core/bzlmod.md)
+
+make sure we carefuully setup BUILD.bazel and gazelle with the correct `go_prefix`!
 
 ```
-# setup WORKSPACE with https://github.com/bazelbuild/bazel-gazelle?tab=readme-ov-file#running-gazelle-with-bazel
-
-# setup BUILD.bazel with gazelle go_prefix
 # gazelle:prefix github.com/jimmyl02/bazel-playground
-gazelle
+```
+
+we can then run gazelle with
+
+```
+bazel run //:gazelle
 ```
 
 #### setup vscode with bazel
@@ -32,7 +39,7 @@ create scripts/gopackagesdriver.sh and make it executable
 ```
 #!/bin/bash
 
-exec bazel run -- @io_bazel_rules_go//go/tools/gopackagesdriver "$@"
+exec bazel run -- @rules_go//go/tools/gopackagesdriver "$@"
 ```
 
 edit the workspace preferences
@@ -49,15 +56,13 @@ edit the workspace preferences
 
 #### import a new dependency with gazelle
 
-add an external dependency
+when adding an external dependency, it is now recommended to use a go.mod which is parsed by the `go_deps` bazel extension. this means when adding a dependency, it should be through the standard `go get -u <package>` command.
 
 ```
-# anywhere in the project, run to add to WORKSPACE
-gazelle update-repos <package>
-
-# use the dependency in the wanted project
-# then run gazelle to update BUILD.bazel:
-gazelle
+go mod init github.com/jimmyl02/bazel-playground
+bazelisk run @rules_go//go -- get -u github.com/moznion/go-optional
+bazelisk run @rules_go//go -- mod tidy -e
+bazelisk run //:gazelle
 ```
 
 add an internal dependency
@@ -82,32 +87,20 @@ bazel build //cmd/testcmd
 
 ## protobuf
 
-following guide [here](https://www.tweag.io/blog/2021-09-08-rules_go-gazelle/)
+with bazelmod being the new default, there are even less guides on how to properly configure it with gazelle. this is a walkthrough of how I've configured bazel for this playground.
 
 #### setup
 
-write the proto file into a types directory then run gazelle to generate the `BUILD.bazel`
+first we need to update the gazelle goo grpc compilers by adding the directive `# gazelle:go_grpc_compilers @rules_go//proto:go_grpc` in our `BUILD.bazel`. this controls the `compilers` property of the `go_proto_library` and is the first step in getting it to output correctly with bazelmod.
+
+write the proto file into a proto directory then run gazelle to generate the `BUILD.bazel`
 
 notice that running `bazel build //...` fails because we are missing `@@com_google_protobuf`
 
-we can add it to our WORKSPACE by following [this](https://github.com/bazelbuild/rules_go/tree/5d306c433cebb1ae8a7b72df2a055be2bacbb12b?tab=readme-ov-file#protobuf-and-grpc)
+we can add it to our MODULE.bazel by adding the dependency
 
 ```
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "com_google_protobuf",
-    sha256 = "535fbf566d372ccf3a097c374b26896fa044bf4232aef9cab37bd1cc1ba4e850",
-    strip_prefix = "protobuf-3.15.0",
-    urls = [
-        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v3.15.0.tar.gz",
-        "https://github.com/protocolbuffers/protobuf/archive/v3.15.0.tar.gz",
-    ],
-)
-
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
+bazel_dep(name = "protobuf", version = "29.3", repo_name = "com_google_protobuf")
 ```
 
 there is another step after rules_go was updated to 48.0, we have to add rules_proto to the MODULE.bazel file
@@ -115,6 +108,14 @@ there is another step after rules_go was updated to 48.0, we have to add rules_p
 
 now running `bazel build //...` works!
 
+a good future step is to look into making gazelle generate `deps = ["@com_google_protobuf//:wrappers_proto"],` as `deps = ["@protobuf//:wrappers_proto"],` so that we don't need the alias
+
 #### using protobuf types within golang
 
 take a look at the `BUILD.bazel` of the types directory; notice that we export a `go_library`, this means we can just directly use it within the go code!
+
+## debugging
+
+#### unexpected end of JSON input
+
+this error occurs when something is wrong with the overall bazel configuration, the best way to debug is to attempt to build something and seeing what is wrong

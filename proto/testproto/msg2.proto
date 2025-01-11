@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package types;
+package testproto;
 
 message SayByeRequest {
   uint32 bye = 1;

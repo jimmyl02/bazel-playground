@@ -5,16 +5,15 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/jimmyl02/bazel-playground/types"
-	_ "github.com/jimmyl02/bazel-playground/types"
+	"github.com/jimmyl02/bazel-playground/proto/testproto"
 	"google.golang.org/grpc"
 )
 
 type server struct {
-	types.UnimplementedTestServer
+	testproto.UnimplementedTestServer
 }
 
-func (s *server) SayHi(ctx context.Context, req *types.SayHiRequest) (*types.SayHiResponse, error) {
+func (s *server) SayHi(ctx context.Context, req *testproto.SayHiRequest) (*testproto.SayHiResponse, error) {
 	fmt.Println("saying hi!")
 
 	username := ""
@@ -22,14 +21,14 @@ func (s *server) SayHi(ctx context.Context, req *types.SayHiRequest) (*types.Say
 		username = req.Name.Value
 	}
 
-	return &types.SayHiResponse{
+	return &testproto.SayHiResponse{
 		Response: fmt.Sprintf("hi! %s", username),
 	}, nil
 }
 
 func main() {
 	s := grpc.NewServer()
-	types.RegisterTestServer(s, &server{})
+	testproto.RegisterTestServer(s, &server{})
 
 	lis, err := net.Listen("tcp", ":8080")
 	if err != nil {

@@ -1,1 +1,6 @@
+load("@gazelle//:def.bzl", "gazelle")
+
+# gazelle:exclude empty.go
+# gazelle:go_grpc_compilers @rules_go//proto:go_grpc
 # gazelle:prefix github.com/jimmyl02/bazel-playground
+gazelle(name = "gazelle")
