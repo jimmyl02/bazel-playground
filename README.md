@@ -65,6 +65,8 @@ bazelisk run @rules_go//go -- mod tidy -e
 bazelisk run //:gazelle
 ```
 
+after this, it is required the manually specify the package in `use_repo` of the root `MODULE.bazel`
+
 add an internal dependency
 
 ```
